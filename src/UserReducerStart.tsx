@@ -28,17 +28,22 @@ export default function UserReducer1() {
       <h2 className="title">Todos</h2>
 
       {todos.map((el, num) => (
-        <div className="box" key={num}>
-          {el.label}{" "}
-          <button
-            className="button"
-            onClick={() => {
-              setEditing(true);
-              setEditingNum(num);
-            }}
-          >
-            Edit
-          </button>
+        <div className="box columns" key={num}>
+          <div className="column">{el.label}</div>
+          <div className="column">
+            <button
+              className="button"
+              onClick={() => {
+                setEditing(true);
+                setEditingNum(num);
+              }}
+            >
+              Edit
+            </button>
+          </div>
+          <div className="column">
+            <button className="button">delete</button>
+          </div>
         </div>
       ))}
 
@@ -49,7 +54,7 @@ export default function UserReducer1() {
       {editing && (
         <div className="modal is-active">
           <div className="modal-background"></div>
-          <div className="modal-content has-background-white">
+          <div className="modal-content has-background-white p-3 ">
             <h3 className="title">Edit</h3>
             <form onSubmit={update}>
               <input type="hidden" name="num" value={editingNum} />
@@ -59,6 +64,9 @@ export default function UserReducer1() {
                 defaultValue={todos[editingNum].label}
                 name="todo"
               />
+              <button onClick={() => setEditing(false)} className="button">
+                cancel
+              </button>
               <button className="button" type="submit">
                 Save
               </button>
@@ -72,10 +80,13 @@ export default function UserReducer1() {
           <hr />
           <div className="modal is-active">
             <div className="modal-background"></div>
-            <div className="modal-content has-background-white">
+            <div className="modal-content has-background-white p-3">
               <h2 className="title">Add todo</h2>
               <form onSubmit={submitForm}>
                 <input className="input is-primary" name="todo" />
+                <button onClick={() => setAddingTodo(false)} className="button">
+                  cancel
+                </button>
                 <button className="button" type="submit">
                   add
                 </button>
