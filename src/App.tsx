@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 
 import Counter from "./Counter";
-import UserReducer1 from "./UserReducerStart";
+import UserReducer1 from "./UseReducerEnd";
 
 function App() {
   const [count, setCount] = useState(0);
