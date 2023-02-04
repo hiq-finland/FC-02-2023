@@ -32,7 +32,7 @@ export default function UserReducer1() {
           <div className="column">{el.label}</div>
           <div className="column">
             <button
-              className="button"
+              className="button is-link"
               onClick={() => {
                 setEditing(true);
                 setEditingNum(num);
@@ -42,12 +42,12 @@ export default function UserReducer1() {
             </button>
           </div>
           <div className="column">
-            <button className="button">delete</button>
+            <button className="button is-link">delete</button>
           </div>
         </div>
       ))}
 
-      <button className="button" onClick={() => setAddingTodo(true)}>
+      <button className="button is-link" onClick={() => setAddingTodo(true)}>
         Add todo
       </button>
 
@@ -64,10 +64,13 @@ export default function UserReducer1() {
                 defaultValue={todos[editingNum].label}
                 name="todo"
               />
-              <button onClick={() => setEditing(false)} className="button">
+              <button
+                onClick={() => setEditing(false)}
+                className="button is-link"
+              >
                 cancel
               </button>
-              <button className="button" type="submit">
+              <button className="button is-link" type="submit">
                 Save
               </button>
             </form>
@@ -84,10 +87,13 @@ export default function UserReducer1() {
               <h2 className="title">Add todo</h2>
               <form onSubmit={submitForm}>
                 <input className="input is-primary" name="todo" />
-                <button onClick={() => setAddingTodo(false)} className="button">
+                <button
+                  onClick={() => setAddingTodo(false)}
+                  className="button is-link"
+                >
                   cancel
                 </button>
-                <button className="button" type="submit">
+                <button className="button is-link" type="submit">
                   add
                 </button>
               </form>
