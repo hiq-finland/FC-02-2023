@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { produce } from "immer";
+
 enum Actions {
   EDIT_TODO,
   ADD_TODO,
@@ -13,15 +13,16 @@ type Action = {
 
 function myReducerFunction(state: State, action: Action) {
   if (action.type === Actions.EDIT_TODO) {
-    return produce(state, (state) => {
-      state.todos[action.payload.num].label = action.payload.todo;
-    });
+    const _todos = [...state.todos];
+    _todos[action.payload.num].label = action.payload.todo;
+
+    return { ...state, todos: _todos };
   }
 
   if (action.type === Actions.ADD_TODO) {
-    return produce(state, (state) => {
-      state.todos.push({ label: action.payload });
-    });
+    const _todos = [...state.todos];
+    _todos.push({ label: action.payload });
+    return { ...state, todos: _todos };
   }
 
   return { ...state };
