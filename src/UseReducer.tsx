@@ -27,7 +27,7 @@ function myReducerFunction(state: State, action: Action) {
   return { ...state };
 }
 
-export default function UserReducer() {
+export default function TodoApp() {
   const [editing, setEditing] = useState(false);
   const [editingNum, setEditingNum] = useState(0);
   const [addingTodo, setAddingTodo] = useState(false);
