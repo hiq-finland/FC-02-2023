@@ -1,16 +1,52 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
+import { produce } from "immer";
+enum Actions {
+  EDIT_TODO,
+  ADD_TODO,
+}
+
+type State = Record<string, any>;
+type Action = {
+  type: Actions;
+  payload: any;
+};
+
+function myReducerFunction(state: State, action: Action) {
+  if (action.type === Actions.EDIT_TODO) {
+    return produce(state, (state) => {
+      state.todos[action.payload.num].label = action.payload.todo;
+    });
+  }
+
+  if (action.type === Actions.ADD_TODO) {
+    return produce(state, (state) => {
+      state.todos.push({ label: action.payload });
+    });
+  }
+
+  return { ...state };
+}
 
 export default function UserReducer() {
-  const [todos, setTodos] = useState([{ label: "go to store" }]);
   const [editing, setEditing] = useState(false);
   const [editingNum, setEditingNum] = useState(0);
   const [addingTodo, setAddingTodo] = useState(false);
 
+  const [state, dispatch] = useReducer(myReducerFunction, {
+    todos: [{ label: "go to store" }],
+  });
+
   function submitForm(e: React.FormEvent) {
     e.preventDefault();
+
     const formData = new FormData(e.target as HTMLFormElement);
-    setTodos([...todos, { label: formData.get("todo") as string }]);
+
     setAddingTodo(false);
+
+    dispatch({
+      type: Actions.ADD_TODO,
+      payload: formData.get("todo"),
+    });
   }
 
   function update(e: React.FormEvent) {
@@ -19,20 +55,29 @@ export default function UserReducer() {
     const formData = new FormData(e.target as HTMLFormElement);
     const num = parseInt(formData.get("num") as string);
     const todo = formData.get("todo");
-    todos[num].label = todo as string;
-    setTodos([...todos]);
+
+    dispatch({
+      type: Actions.EDIT_TODO,
+      payload: {
+        num,
+        todo,
+      },
+    });
+
+    // todos[num].label = todo as string;
+    // setTodos([...todos]);
   }
 
   return (
     <div className="box">
       <h2 className="title">Todos</h2>
 
-      {todos.map((el, num) => (
+      {state.todos.map((el: Record<string, any>, num: number) => (
         <div className="box columns" key={num}>
           <div className="column">{el.label}</div>
           <div className="column">
             <button
-              className="button is-link"
+              className="button"
               onClick={() => {
                 setEditing(true);
                 setEditingNum(num);
@@ -42,12 +87,12 @@ export default function UserReducer() {
             </button>
           </div>
           <div className="column">
-            <button className="button is-link">delete</button>
+            <button className="button">delete</button>
           </div>
         </div>
       ))}
 
-      <button className="button is-link" onClick={() => setAddingTodo(true)}>
+      <button className="button" onClick={() => setAddingTodo(true)}>
         Add todo
       </button>
 
@@ -61,16 +106,13 @@ export default function UserReducer() {
               <input
                 className="input is-primary"
                 type={"text"}
-                defaultValue={todos[editingNum].label}
+                defaultValue={state.todos[editingNum].label}
                 name="todo"
               />
-              <button
-                onClick={() => setEditing(false)}
-                className="button is-link"
-              >
+              <button onClick={() => setEditing(false)} className="button">
                 cancel
               </button>
-              <button className="button is-link" type="submit">
+              <button className="button" type="submit">
                 Save
               </button>
             </form>
@@ -87,13 +129,10 @@ export default function UserReducer() {
               <h2 className="title">Add todo</h2>
               <form onSubmit={submitForm}>
                 <input className="input is-primary" name="todo" />
-                <button
-                  onClick={() => setAddingTodo(false)}
-                  className="button is-link"
-                >
+                <button onClick={() => setAddingTodo(false)} className="button">
                   cancel
                 </button>
-                <button className="button is-link" type="submit">
+                <button className="button" type="submit">
                   add
                 </button>
               </form>
