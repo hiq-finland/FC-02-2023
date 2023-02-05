@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function UserReducer1() {
+export default function UserReducer() {
   const [todos, setTodos] = useState([{ label: "go to store" }]);
   const [editing, setEditing] = useState(false);
   const [editingNum, setEditingNum] = useState(0);
@@ -13,7 +13,7 @@ export default function UserReducer1() {
     setAddingTodo(false);
   }
 
-  function update(e: React.FocusEvent) {
+  function update(e: React.FormEvent) {
     e.preventDefault();
     setEditing(false);
     const formData = new FormData(e.target as HTMLFormElement);
