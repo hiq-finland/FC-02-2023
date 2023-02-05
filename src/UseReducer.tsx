@@ -70,7 +70,7 @@ export default function TodoApp() {
 
   return (
     <div className="box">
-      <h2 className="title">Todos with Immer </h2>
+      <h2 className="title">Todos with Immer ❤️❤️</h2>
 
       {state.todos.map((el: Record<string, any>, num: number) => (
         <div className="box columns" key={num}>
