@@ -1,9 +1,9 @@
 import "./index.css";
 
-import UserReducer from "./UseReducer";
+import TodoApp from "./UseReducer";
 
 function App() {
-  return <UserReducer />;
+  return <TodoApp />;
 }
 
 export default App;

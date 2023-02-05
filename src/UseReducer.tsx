@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function UserReducer() {
+export default function TodoApp() {
   const [todos, setTodos] = useState([{ label: "go to store" }]);
   const [editing, setEditing] = useState(false);
   const [editingNum, setEditingNum] = useState(0);
