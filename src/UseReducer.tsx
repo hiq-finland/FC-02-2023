@@ -71,7 +71,7 @@ export default function TodoApp() {
 
   return (
     <div className="box">
-      <h2 className="title">Todos</h2>
+      <h2 className="title">Todos with useReducer</h2>
 
       {state.todos.map((el: Record<string, any>, num: number) => (
         <div className="box columns" key={num}>
