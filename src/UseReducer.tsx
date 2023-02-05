@@ -25,7 +25,7 @@ export default function TodoApp() {
 
   return (
     <div className="box">
-      <h2 className="title">Todos</h2>
+      <h2 className="title">Todos 🚀</h2>
 
       {todos.map((el, num) => (
         <div className="box columns" key={num}>
