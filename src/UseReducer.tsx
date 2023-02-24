@@ -66,7 +66,7 @@ export default function TodoApp() {
     });
 
     // todos[num].label = todo as string;
-    // setTodos([...todos]);
+    // setTodos([...todos]); jiji
   }
 
   return (
